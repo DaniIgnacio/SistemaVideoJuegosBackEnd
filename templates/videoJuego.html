@@ -15,10 +15,10 @@
             <a class="nav-link" style="color: #666699" href="/"><i class="fa-solid fa-house"></i> inicio</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" style="color: #666699" href="/empresas"><i class="fa-solid fa-building"></i> empresas</a>
+            <a class="nav-link" style="color: #666699" href="/empresas"><i class="fa-solid fa-building"></i> Empresas</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="#"><i class="fa-solid fa-gamepad"></i> videojuegos</a>
+            <a class="nav-link active" href="#"><i class="fa-solid fa-gamepad"></i> Videojuegos</a>
         </li>
     </ul>
     <div class="container-fluid py-5">
@@ -29,9 +29,8 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nombre del videojuego</th>
                             <th scope="col">Foto</th>
+                            <th scope="col">Nombre del videojuego</th>
                             <th scope="col">Genero</th>
                             <th scope="col">Lanzamiento</th>
                             <th scope="col">Empresa</th>
@@ -40,16 +39,17 @@
                     <tbody>
                         {% for juego in juegos %}
                         <tr>
-                            <td>{{ juego.id}} </td>
-                            <td>{{ juego.nombre}} </td>
                             <td>
-                                {{ juego.foto }}
+                                <img src="{{ juego.foto.url }}" style="max-width: 100px; max-height: 100px;">
+
                             </td>
+                            <td>{{ juego.nombre}} </td>
                             <td>{{ juego.genero}} </td>
                             <td>{{ juego.lanzamiento}} </td>
                             <td>{{ juego.id_empresa}} </td>
                             <td>
-                                <a name="" id="" class="btn btn-primary" href=""role="button">Editar</a> |
+                                <a name="" id="" class="btn btn-primary" href="{% url 'editarJuego' juego.id  %}"
+                                    role="button">Editar</a>
                                 <a class="btn btn-danger" href="/eliminarJuego/{{ juego.id }}" role="button">Borrar</a>
                             </td>
                         </tr>

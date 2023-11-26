@@ -17,7 +17,7 @@ def agregarEmpresa(request):
         form = FormEmpresa(request.POST)
         if form.is_valid():
             form.save()
-            return listadoEmpresa(request)
+            return redirect(listadoEmpresa)
     data = {'form': form}
     return render(request, 'agregarEmpresa.html', data)
 
@@ -39,7 +39,7 @@ def editarEmpresa(request,id):
 
 
 
-def listadoAlumnos(request):
+def listadoJuegos(request):
     juegos = Juego.objects.all()
     data = {'juegos': juegos}
     return render(request, 'videoJuego.html', data)
@@ -50,7 +50,7 @@ def agregarJuegos(request):
         form = FormJuego(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return listadoAlumnos(request)
+            return redirect(listadoJuegos)
     data = {'form': form}
     return render(request, 'agregarJuego.html', data)
 
@@ -60,12 +60,12 @@ def eliminarJuego(request,id):
     return redirect('/videojuegos')
 
 def editarJuego(request,id):
-    empresa = Empresa.objects.get(id = id)
-    form = FormEmpresa(instance=empresa)
+    juego = Juego.objects.get(id = id)
+    form = FormJuego(instance=juego)
     if request.method == 'POST':
-        form = FormEmpresa(request.POST, instance=empresa)
+        form = FormJuego(request.POST, instance=juego)
         if form.is_valid():
             form.save()
-        return redirect("/empresas")
+        return redirect("/videojuegos")
     data = {'form': form}
-    return render(request,'agregarEmpresa.html',data)
+    return render(request,'agregarJuego.html',data)
