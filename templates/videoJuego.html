@@ -28,12 +28,13 @@
             <div class="card-body">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th scope="col">Foto</th>
-                            <th scope="col">Nombre del videojuego</th>
-                            <th scope="col">Genero</th>
-                            <th scope="col">Lanzamiento</th>
-                            <th scope="col">Empresa</th>
+                        <tr class="bg-primary">
+                            <th scope="col" class="bg-success rounded-start text-white">Foto</th>
+                            <th scope="col" class="bg-success text-white">Nombre</th>
+                            <th scope="col" class="bg-success text-white">Género</th>
+                            <th scope="col" class="bg-success text-white">Lanzamiento</th>
+                            <th scope="col" class="bg-success  text-white">Empresa</th>
+                            <th class="bg-success rounded-end"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +50,7 @@
                             <td>{{ juego.lanzamiento}} </td>
                             <td>{{ juego.id_empresa}} </td>
                             <td>
-                                <a name="" id="" class="btn btn-primary" href="{% url 'editarJuego' juego.id  %}"
+                                <a name="" id="" class="btn btn-warning" href="{% url 'editarJuego' juego.id  %}"
                                     role="button">Editar</a>
                                 <a class="btn btn-danger" href="/eliminarJuego/{{ juego.id }}" role="button">Borrar</a>
                             </td>
@@ -61,13 +62,13 @@
             <div class="card-footer text-muted">
                 {% else %}
                 <div class="alert alert-danger" role="alert">
-                    <strong>No se encuentran videojuegos en el sistema</strong>
+                    <strong>No se encuentran Videojuegos en el sistema</strong>
                 </div>
                 {% endif %}
-                <div class="card-header">
+                
                     <a href="../agregarJuegos" class="btn btn-primary float-end">Agregar Videojuego</a>
                     <a name="" id="" class="btn btn-danger" href="../" role="button">Volver</a>
-                </div>
+
             </div>
         </div>
     </div>

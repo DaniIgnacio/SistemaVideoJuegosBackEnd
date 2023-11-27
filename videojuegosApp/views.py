@@ -4,6 +4,9 @@ from .forms import *
 from django.conf import settings
 import os
 
+from django.shortcuts import get_object_or_404, redirect, render
+
+
 # Create your views here.
 def home(request):
     return render(request,'index.html')
@@ -36,18 +39,22 @@ def eliminarEmpresa(request, id):
     empresa.delete()
 
     return redirect('/empresas')
-def editarEmpresa(request,id):
-    empresa = Empresa.objects.get(id = id)
-    form = FormEmpresa(instance=empresa)
+
+def editarEmpresa(request, id):
+    empresa = get_object_or_404(Empresa, id=id)
+
     if request.method == 'POST':
         form = FormEmpresa(request.POST, instance=empresa)
         if form.is_valid():
             form.save()
-        return redirect("/empresas")
+            return redirect("/empresas")  # Cambia esto a tu URL de lista de empresas
+    else:
+        form = FormEmpresa(instance=empresa)  # Rellenar formulario con datos de la empresa
+
     data = {'form': form}
-    return render(request,'agregarEmpresa.html',data)
+    return render(request, 'agregarEmpresa.html', data)
 
-
+   
 
 def listadoJuegos(request):
     juegos = Juego.objects.all()
@@ -55,12 +62,14 @@ def listadoJuegos(request):
     return render(request, 'videoJuego.html', data)
 
 def agregarJuegos(request):
-    form = FormJuego()
     if request.method == 'POST':
         form = FormJuego(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(listadoJuegos)
+    else:  # GET request o formulario no válido
+        form = FormJuego()
+
     data = {'form': form}
     return render(request, 'agregarJuego.html', data)
 
@@ -72,13 +81,30 @@ def eliminarJuego(request, id):
         os.remove(ruta_imagen)
 
     return redirect('/videojuegos')
-def editarJuego(request,id):
-    juego = Juego.objects.get(id = id)
-    form = FormJuego(instance=juego)
+def editarJuego(request, id):
+    juego = get_object_or_404(Juego, id=id)
+    imagen_antigua = juego.foto
+
     if request.method == 'POST':
-        form = FormJuego(request.POST, instance=juego)
+        form = FormJuego(request.POST, request.FILES, instance=juego)
         if form.is_valid():
+            nueva_imagen = form.cleaned_data['foto']
+            if nueva_imagen != imagen_antigua:  # Verifica si la imagen se ha cambiado
+                juego.foto = nueva_imagen
+                if imagen_antigua:
+                    # Eliminar la imagen antigua solo si se proporciona una nueva imagen
+                    ruta_imagen_antigua = os.path.join(settings.MEDIA_ROOT, str(imagen_antigua))
+                    if os.path.isfile(ruta_imagen_antigua):
+                        os.remove(ruta_imagen_antigua)
+            else:
+                # Restaura la imagen antigua si no se proporciona una nueva imagen
+                juego.foto = imagen_antigua
+
             form.save()
-        return redirect("/videojuegos")
+            return redirect("/videojuegos")
+    else:
+        form = FormJuego(instance=juego)
+        form.fields['lanzamiento'].initial = juego.lanzamiento.strftime('%Y-%m-%d') if juego.lanzamiento else None
+
     data = {'form': form}
-    return render(request,'agregarJuego.html',data)
+    return render(request, 'agregarJuego.html', data)

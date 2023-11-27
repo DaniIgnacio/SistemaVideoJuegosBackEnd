@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -30,27 +31,27 @@
             <div class="card-body">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nombre de la empresa</th>
-                            <th scope="col">Ubicacion</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Fecha de fundacion</th>
+                        <tr class="bg-primary">
+                            
+                            <th scope="col" class="bg-success rounded-start text-white">Nombre</th>
+                            <th scope="col"class="bg-success text-white">Pais</th>
+                            <th scope="col" class="bg-success text-white">Correo</th>
+                            <th scope="col"class="bg-success text-white ">Fecha de Fundación</th>
+                            <th class="bg-success rounded-end text-white"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for empresa in empresas %}
                         <tr>
-                            <td>{{ empresa.id}} </td>
+                            
                             <td>{{ empresa.nombre}} </td>
-                            <td>{{ empresa.direccion}} </td>
-                            <td>{{ empresa.telefono}} </td>
-                            <td>{{ empresa.fehca_fundacion}} </td>
+                            <td>{{ empresa.pais}} </td>
+                            <td>{{ empresa.correo}} </td>
+                            <td>{{ empresa.fecha_fundacion}} </td>
                             <td>
-                                <a name="" id="" class="btn btn-primary" href="{% url 'editarEmpresa' empresa.id  %}"
-                                    role="button">Editar</a> |
-                                <a class="btn btn-danger" href="/eliminarEmpresa/{{ empresa.id }}"
-                                    role="button">Borrar</a>
+                                <a name="" id="" class="btn btn-warning" href="{% url 'editarEmpresa' empresa.id  %}"
+                                    role="button">Editar</a>
+                                <a class="btn btn-danger" href="/eliminarEmpresa/{{ empresa.id }}" role="button">Borrar</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -60,13 +61,13 @@
             <div class="card-footer text-muted">
                 {% else %}
                 <div class="alert alert-danger" role="alert">
-                    <strong>No se encuentran proyectos en el sistema</strong>
+                    <strong>No se encuentran Empresas en el Sistema</strong>
                 </div>
                 {% endif %}
-                <div class="card-header">
+                
                     <a href="../agregarEmpresa" class="btn btn-primary float-end">Agregar Empresa</a>
                     <a name="" id="" class="btn btn-danger" href="../" role="button">Volver</a>
-                </div>
+                
             </div>
         </div>
     </div>
