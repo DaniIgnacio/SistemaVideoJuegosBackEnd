@@ -89,15 +89,15 @@ def editarJuego(request, id):
         form = FormJuego(request.POST, request.FILES, instance=juego)
         if form.is_valid():
             nueva_imagen = form.cleaned_data['foto']
-            if nueva_imagen != imagen_antigua:  # Verifica si la imagen se ha cambiado
+            if nueva_imagen != imagen_antigua:  
                 juego.foto = nueva_imagen
                 if imagen_antigua:
-                    # Eliminar la imagen antigua solo si se proporciona una nueva imagen
+                    
                     ruta_imagen_antigua = os.path.join(settings.MEDIA_ROOT, str(imagen_antigua))
                     if os.path.isfile(ruta_imagen_antigua):
                         os.remove(ruta_imagen_antigua)
             else:
-                # Restaura la imagen antigua si no se proporciona una nueva imagen
+                
                 juego.foto = imagen_antigua
 
             form.save()
