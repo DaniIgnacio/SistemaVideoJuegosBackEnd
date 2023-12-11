@@ -27,8 +27,14 @@
     <h1 class="display-5 fw-bold">Bienvenidos al sistema</h1>
     <hr class="my-2">
     <p class="lead">
-      <a class="btn btn-primary btn-lg" href="{% url 'empresas' %}" role="button">Empezar</a>
+      <a class="btn btn-danger btn-lg flex-fill flex-sm-fill me-2" href="{% url 'empresas' %}" role="button">Empresas</a>
+      <a class="btn btn-danger btn-lg flex-fill flex-sm-fill me-2" href="{% url 'videojuegos' %}" role="button">Videojuegos</a>
+      <a class="btn btn-info btn-lg flex-fill flex-sm-fill me-2" href="{% url 'empresasapi' %}" role="button">Empresas API REST</a>
+      <a class="btn btn-info btn-lg flex-fill flex-sm-fill me-2" href="{% url 'juegosapi' %}" role="button">Videojuegos API REST</a>
+      <a class="btn btn-outline-primary btn-lg flex-fill flex-sm-fill" href="/admin" role="button">Admin</a>
     </p>
+
+    
   </div>
 
   <script src="https://kit.fontawesome.com/fe47ab309f.js" crossorigin="anonymous"></script>

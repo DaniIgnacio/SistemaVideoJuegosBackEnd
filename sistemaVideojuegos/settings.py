@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'videojuegosApp'
+    'videojuegosApp',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'videojuegos',
         'USER': 'root',
-        'PASSWORD': ''
+        'PASSWORD': '',
+        'HOST':'127.0.0.1',
     }
 }
 
@@ -129,3 +131,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+

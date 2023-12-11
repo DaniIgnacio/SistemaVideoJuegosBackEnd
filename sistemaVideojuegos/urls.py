@@ -30,4 +30,10 @@ urlpatterns = [
 
     path('eliminarJuego/<int:id>/', eliminarJuego, name='eliminarJuego'),
     path('editarJuego/<int:id>/', editarJuego, name='editarJuego'),
+
+    path('empresasapi/',listado_empresa, name='empresasapi'),
+    path('empresasapi/<int:pk>',empresas_detail),
+
+    path('juegosapi/',listado_juego, name='juegosapi'),
+    path('juegosapi/<int:pk>',juegos_detalles)
 ]
