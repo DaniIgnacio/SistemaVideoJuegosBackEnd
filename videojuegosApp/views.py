@@ -114,75 +114,13 @@ def editarJuego(request, id):
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
-
-@api_view(['GET','POST'])
-def listado_empresa(request):
-    if request.method=='GET':
-        empresas=Empresa.objects.all()#.order_by("fecha")
-        ser=EmpresaSerializer(empresas,many=True)
-        return Response(ser.data)
-    if request.method=='POST':
-        ser=EmpresaSerializer(data=request.data)
-        if ser.is_valid():
-            ser.save()
-            return Response(ser.data,status=status.HTTP_201_CREATED)
-        return Response(ser.errors,status=status.HTTP_400_BAD_REQUEST)
+from rest_framework import status, viewsets
 
 
-@api_view(['GET','PUT','DELETE'])
-def empresas_detail(request,pk):
-    try:
-        empresa=Empresa.objects.get(pk=pk)
-    except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    if request.method =='GET':
-        ser=EmpresaSerializer(empresa)
-        return Response(ser.data)
-    if request.method =='PUT':
-        ser=EmpresaSerializer(empresa,data=request.data)
-        if ser.is_valid():
-            ser.save()
-            return Response(ser.data)
-        return Response(ser.errors,status=status.HTTP_400_BAD_REQUEST)
-    if request.method =='DELETE':
-        empresa.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    
+class EmpresasList(viewsets.ModelViewSet):
+    queryset = Empresa.objects.all()
+    serializer_class = EmpresaSerializer
 
-
-
-@api_view(['GET','POST'])
-def listado_juego(request):
-    if request.method=='GET':
-        juegos=Juego.objects.all()#.order_by("fecha")
-        ser=JuegoSerializer(juegos,many=True)
-        return Response(ser.data)
-    if request.method=='POST':
-        ser=JuegoSerializer(data=request.data)
-        if ser.is_valid():
-            ser.save()
-            return Response(ser.data,status=status.HTTP_201_CREATED)
-        return Response(ser.errors,status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET','PUT','DELETE'])
-def juegos_detalles(request,pk):
-    try:
-        juego=Juego.objects.get(pk=pk)
-    except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    if request.method =='GET':
-        ser=JuegoSerializer(juego)
-        return Response(ser.data)
-    if request.method =='PUT':
-        ser=JuegoSerializer(juego,data=request.data)
-        if ser.is_valid():
-            ser.save()
-            return Response(ser.data)
-        return Response(ser.errors,status=status.HTTP_400_BAD_REQUEST)
-    if request.method =='DELETE':
-        juego.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+class JuegosList(viewsets.ModelViewSet):
+    queryset = Juego.objects.all()
+    serializer_class = JuegoSerializer
