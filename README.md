@@ -1,1 +1,3 @@
 # SistemaVideoJuegosBackEnd
+
+# pip install coreapi

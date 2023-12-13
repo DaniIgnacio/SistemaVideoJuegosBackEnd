@@ -6,6 +6,7 @@ import os
 from .serializers import *
 from django.shortcuts import get_object_or_404, redirect, render
 from http import server
+from rest_framework.decorators import action
 
 # Create your views here.
 def home(request):

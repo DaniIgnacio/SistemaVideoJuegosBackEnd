@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from videojuegosApp.views import *
+from rest_framework.documentation import include_docs_urls
 
 from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
@@ -25,7 +26,9 @@ router.register(r'juegos', JuegosList, basename='juegos')
 
 
 urlpatterns = [
-    path('api/', include(router.urls), name='api'),
+    path('api/', include(router.urls)),
+    path('docs/',include_docs_urls(title='Api Documentation')),
+    
     path('admin/', admin.site.urls),
     path('',home, name="home"),
     path('empresas/',listadoEmpresa, name='empresas'),
@@ -36,5 +39,7 @@ urlpatterns = [
     path('agregarJuegos', agregarJuegos, name="agregarJuegos"),
     path('eliminarJuego/<int:id>/', eliminarJuego, name='eliminarJuego'),
     path('editarJuego/<int:id>/', editarJuego, name='editarJuego'),
+
+    
 
 ]
