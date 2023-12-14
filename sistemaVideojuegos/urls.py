@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from videojuegosApp.views import *
 from rest_framework.documentation import include_docs_urls
+from django.contrib.auth.views import LoginView
+
 
 from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
@@ -29,7 +31,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('docs/',include_docs_urls(title='Api Documentation')),
     
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('',home, name="home"),
     path('empresas/',listadoEmpresa, name='empresas'),
     path('videojuegos/',listadoJuegos, name="videojuegos"),

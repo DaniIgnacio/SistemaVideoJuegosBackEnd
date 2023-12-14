@@ -5,17 +5,18 @@ from django.conf import settings
 import os
 from .serializers import *
 from django.shortcuts import get_object_or_404, redirect, render
-from http import server
-from rest_framework.decorators import action
+from django.contrib.auth.decorators import login_required,permission_required
+from django.http import HttpResponseForbidden
 
 # Create your views here.
 def home(request):
     return render(request,'index.html')
 
+@login_required(login_url='/admin/login/')
 def listadoEmpresa(request):
     empresas = Empresa.objects.all()
     data = {'empresas': empresas}
-    return render(request, 'empresa.html',data)
+    return render(request, 'empresa.html', data)
 
 def agregarEmpresa(request):
     form = FormEmpresa()
@@ -55,6 +56,8 @@ def editarEmpresa(request, id):
     data = {'form': form}
     return render(request, 'agregarEmpresa.html', data)
 
+
+@login_required(login_url='/admin/login/')
 def listadoJuegos(request):
     juegos = Juego.objects.all()
     data = {'juegos': juegos}
@@ -113,9 +116,7 @@ def editarJuego(request, id):
 
 
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status, viewsets
+from rest_framework import viewsets
 
 
 class EmpresasList(viewsets.ModelViewSet):
@@ -125,3 +126,5 @@ class EmpresasList(viewsets.ModelViewSet):
 class JuegosList(viewsets.ModelViewSet):
     queryset = Juego.objects.all()
     serializer_class = JuegoSerializer
+
+

@@ -136,3 +136,5 @@ STATICFILES_DIRS = [
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
+
+LOGIN_URL = '/admin/login/'  # Ajusta la URL según tu configuración
