@@ -41,6 +41,7 @@ urlpatterns = [
     path('agregarJuegos', agregarJuegos, name="agregarJuegos"),
     path('eliminarJuego/<int:id>/', eliminarJuego, name='eliminarJuego'),
     path('editarJuego/<int:id>/', editarJuego, name='editarJuego'),
+    
 
     
 

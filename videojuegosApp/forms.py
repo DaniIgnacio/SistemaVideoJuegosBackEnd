@@ -1,6 +1,7 @@
 from .models  import *
 from django import forms
 from django.forms.widgets import SelectDateWidget
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class FormEmpresa(forms.ModelForm):
@@ -29,3 +30,7 @@ class FormJuego(forms.ModelForm):
     genero = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     lanzamiento = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control'}))
     id_empresa = forms.ModelChoiceField(queryset=Empresa.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de usuario'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña'}))

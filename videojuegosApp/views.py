@@ -7,17 +7,24 @@ from .serializers import *
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required,permission_required
 from django.http import HttpResponseForbidden
+from django.contrib.auth.views import LoginView
+
 
 # Create your views here.
+@login_required()
 def home(request):
     return render(request,'index.html')
 
+
 @login_required(login_url='/admin/login/')
+@permission_required('videojuegosApp.view_empresa')
 def listadoEmpresa(request):
     empresas = Empresa.objects.all()
     data = {'empresas': empresas}
     return render(request, 'empresa.html', data)
 
+@login_required(login_url='/admin/login/')
+@permission_required('videojuegosApp.add_empresa')
 def agregarEmpresa(request):
     form = FormEmpresa()
     if request.method == 'POST':
@@ -28,6 +35,9 @@ def agregarEmpresa(request):
     data = {'form': form}
     return render(request, 'agregarEmpresa.html', data)
 
+
+@login_required(login_url='/admin/login/')
+@permission_required('videojuegosApp.delete_empresa')
 def eliminarEmpresa(request, id):
     empresa = Empresa.objects.get(id=id)
     juegos_empresa = Juego.objects.filter(id_empresa=empresa)
@@ -42,6 +52,8 @@ def eliminarEmpresa(request, id):
 
     return redirect('/empresas')
 
+@login_required(login_url='/admin/login/')
+@permission_required('videojuegosApp.change_empresa')
 def editarEmpresa(request, id):
     empresa = get_object_or_404(Empresa, id=id)
 
@@ -58,11 +70,14 @@ def editarEmpresa(request, id):
 
 
 @login_required(login_url='/admin/login/')
+@permission_required('videojuegosApp.view_juego')
 def listadoJuegos(request):
     juegos = Juego.objects.all()
     data = {'juegos': juegos}
     return render(request, 'videoJuego.html', data)
 
+@login_required(login_url='/admin/login/')
+@permission_required('videojuegosApp.add_juego')
 def agregarJuegos(request):
     if request.method == 'POST':
         form = FormJuego(request.POST, request.FILES)
@@ -75,6 +90,8 @@ def agregarJuegos(request):
     data = {'form': form}
     return render(request, 'agregarJuego.html', data)
 
+@login_required(login_url='/admin/login/')
+@permission_required('videojuegosApp.delete_juego')
 def eliminarJuego(request, id):
     juego = Juego.objects.get(id=id)
     ruta_imagen = os.path.join(settings.MEDIA_ROOT, str(juego.foto))
